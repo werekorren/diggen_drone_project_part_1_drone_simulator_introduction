@@ -151,11 +151,11 @@ You can follow the instructions in the \texttt{README.md} file to deploy the web
 When you successfully deployed the web server, open the website in your web browser, you can see a map of Lund that looks like \Cref{fig:map} hosted by the website. It is a map of Lund composed by edges and vertices (or nodes). The geographic coordinates of all the components in the map are from OpenStreetMap (OSM) \cite{OSM}. The edges represent the actual streets in Lund, and nodes are the intersections of the streets.
 
 
-The red dots (a circle element in CSS) on the map represents the drone location, and the coordinates of the drone are also displayed on the web page.
+The red dot (a circle element in CSS) on the map represents the drone location, and the coordinates of the drone are also displayed on the web page.
 
 The elements of the web page can be seen in the \texttt{/webserver/templates/index.html} file. JavaScript was used to create all the elements and you don't need to edit the JavaScript-section in your tasks of this assignment, but you can try to modify the HTML file a bit and add CSS if you want to change the layout or have a better design of the website.
 
-The map image is in SVG format - it is a vector image format for two-dimensional graphics. This image is stored in \texttt{/webserver/static/images/}. If you open this image in your programming IDE, you can see it is formed with many vectors with coordinates. Therefore, every point in this SVG image has coordinates. However, the SVG image and OMS have different coordinate systems, that means the same location gets different coordinates from OSM and from the SVG image. The relation between the two coordinate systems are shown in \Cref{fig:OSMtoSVG}.  In this case, when you get a pair of location coordinates (longitude, latitude) from OSM, you will need to convert it to (x, y) in the SVG coordinate system. This is done by the \texttt{translate(coords\_osm)} function given in \texttt{/webserver/build.py}. In this assignment, you only work with OSM coordinate system to move the drone, the function will translate it to SVG coordinates before passing the location data to the HTML file and showing it on the map.\\
+The map image is in SVG format - it is a vector image format for two-dimensional graphics. This image is stored in \texttt{/webserver/static/images/}. If you open this image in your programming IDE, you can see it is formed with many vectors with coordinates. Therefore, every point in this SVG image has coordinates. However, the SVG image and OMS have different coordinate systems, that means the same location gets different coordinates from OSM and from the SVG image. The relation between the two coordinate systems are shown in \Cref{fig:OSMtoSVG}.  In this case, when you get a pair of location coordinates (longitude, latitude) from OSM, you will need to convert it to (x, y) in the SVG coordinate system. This is done by the \texttt{translate(coords\_osm)} function given in \texttt{/webserver/build.py}. In this assignment, you only work with the OSM coordinate system to move the drone. The function will translate it to SVG coordinates before passing the location data to the HTML file and showing it on the map.\\
 
 \noindent{\bf Question 1: }\parbox[t]{14cm}{\textcolor{red}{The drone's location is initialized on the map when you open the browser, find out the initial coordinate in (longitude, latitude) and in SVG (x,y).}}
 
@@ -168,7 +168,7 @@ The map image is in SVG format - it is a vector image format for two-dimensional
 \end{figure}
 
 \subsection{The web server}
-In the Python script of the web server \texttt{webserver/build.py}, you can also see three functions with decorators (Python decorators are indicated by @ symbol before each function, see \cite{deco} for what a decorator is). Two functions with \texttt{@app.route()} means that they can be called by HTTP requests. The \texttt{@app.route('/')} is the default function that will be called when you type the URL \url{http://127.0.0.1:5000} in your browser, and you can see it renders the \texttt{index.html} file, which contains all the objects of your webpage. 
+In the Python script of the web server, \texttt{webserver/build.py}, you can also see three functions with decorators (Python decorators are indicated by @ symbol before each function, see \cite{deco} for what a decorator is). Two functions with \texttt{@app.route()} means that they can be called by HTTP requests. The \texttt{@app.route('/')} is the default function that will be called when you type the URL \url{http://127.0.0.1:5000} in your browser, and you can see it renders the \texttt{index.html} file, which contains all the objects of your webpage. 
 
 You can also see another route \texttt{/drone}, which will call the \texttt{drone()} function. Add \texttt{/drone} to the link on your browser to try to access it.\\
 
@@ -192,7 +192,9 @@ There are two parts in the script: \texttt{if \_\_name\_\_ == "\_\_main\_\_"} in
 
 
 \section{Write your own controller}
-In this assignment, you will need to run the web server and the controller on your Raspberry Pi. Your task is to modify the controller in \texttt{/pi/pi\_controller.py}. In the provided script, you used the keyboard to move the drone. Now you need to replace the \texttt{get\_direction()} with your own, so that the drone is moved by the joystick on your Raspberry Pi, similarly to how it is moved by the arrow keys in the original script. {\textcolor{red}{You need to show the TAs your completed task when you have finish it.}
+In this assignment, you will need to run the web server and the controller on your Raspberry Pi. Your task is to modify the controller in \texttt{/pi/pi\_controller.py}. In the provided script, you used the keyboard to move the drone. Now you need to replace the \texttt{get\_direction()} with your own, so that the drone is moved by the joystick on your Raspberry Pi, similarly to how it is moved by the arrow keys in the original script.
+
+{\textcolor{red}{You need to show the TAs your completed task when you have finished it.}
 
 
 \begin{comment}\section{Hint for MAC OS}
@@ -213,9 +215,9 @@ If you run the web server on MAC OS, you may get problems with \texttt{pip3}. MA
 \begin{thebibliography}{10}
 \bibliographystyle{plain}
 
-\bibitem{OSM} OpenStreetMap, \url{https://www.openstreetmap.org/#map=14/55.7059/13.2005}, last accessed on 2021-11-08.
+\bibitem{OSM} OpenStreetMap, \url{https://www.openstreetmap.org/#map=14/55.7059/13.2005}, last accessed on 2024-12-04.
 
-\bibitem{deco} Python decorator, \url{https://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html}, last accessed on 2021-11-08.
+\bibitem{deco} Python decorator, \url{https://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html}, last accessed on 2024-12-04.
 
 
 \end{thebibliography}
